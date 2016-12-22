@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -31,69 +31,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-class MyButton extends JButton {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7894672089694147774L;
-	private boolean isLastButton;
-
-	public MyButton() {
-
-		super();
-
-		initUI();
-	}
-
-	public MyButton(Image image) {
-
-		super(new ImageIcon(image));
-
-		initUI();
-	}
-
-	private void initUI() {
-
-		isLastButton = false;
-		BorderFactory.createLineBorder(Color.gray);
-
-		addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				setBorder(BorderFactory.createLineBorder(Color.yellow));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				setBorder(BorderFactory.createLineBorder(Color.gray));
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				setBorder(BorderFactory.createLineBorder(Color.gray));
-			}
-		});
-	}
-
-	public void setLastButton() {
-
-		isLastButton = true;
-	}
-
-	public boolean isLastButton() {
-
-		return isLastButton;
-	}
-}
-
 public class PuzzleEx extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1410273771928183146L;
+	private static final String FILE_NAME = "hao.jpg";
 	private JPanel panel;
 	private BufferedImage source;
 	private ArrayList<MyButton> buttons;
@@ -120,6 +64,9 @@ public class PuzzleEx extends JFrame {
 				solution.add(new Point(i, j));
 			}
 		}
+		
+		ImageIcon icon = new ImageIcon(getClass().getResource("dog.jpg"));
+		setIconImage(icon.getImage());
 
 		buttons = new ArrayList<MyButton>();
 
@@ -236,7 +183,7 @@ public class PuzzleEx extends JFrame {
 
 	private BufferedImage loadImage() throws IOException {
 
-		BufferedImage bimg = ImageIO.read(new File(getClass().getResource("cloud.jpg").getPath()));
+		BufferedImage bimg = ImageIO.read(getClass().getResource(FILE_NAME));
 
 		return bimg;
 	}
@@ -322,5 +269,63 @@ public class PuzzleEx extends JFrame {
 				puzzle.setVisible(true);
 			}
 		});
+	}
+}
+
+
+class MyButton extends JButton {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7894672089694147774L;
+	private boolean isLastButton;
+
+	public MyButton() {
+
+		super();
+
+		initUI();
+	}
+
+	public MyButton(Image image) {
+
+		super(new ImageIcon(image));
+
+		initUI();
+	}
+
+	private void initUI() {
+
+		isLastButton = false;
+		BorderFactory.createLineBorder(Color.gray);
+
+		addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setBorder(BorderFactory.createLineBorder(Color.yellow));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setBorder(BorderFactory.createLineBorder(Color.gray));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				setBorder(BorderFactory.createLineBorder(Color.gray));
+			}
+		});
+	}
+
+	public void setLastButton() {
+
+		isLastButton = true;
+	}
+
+	public boolean isLastButton() {
+
+		return isLastButton;
 	}
 }
